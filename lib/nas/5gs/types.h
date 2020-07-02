@@ -63,7 +63,14 @@ typedef struct ogs_nas_s_nssai_s {
     ogs_uint24_t sd;
     uint8_t mapped_hplmn_sst;
     ogs_uint24_t mapped_hplmn_sd;
+
+    char buffer[OGS_NAS_S_NSSAI_SST_SD_AND_MAPPED_HPLMN_SST_SD_LEN];
 } __attribute__ ((packed)) ogs_nas_s_nssai_t;
+
+void ogs_nas_build_s_nssai(
+        ogs_nas_s_nssai_t *nas_s_nssai, ogs_s_nssai_t *s_nssai);
+int ogs_nas_parse_s_nssai(
+        ogs_s_nssai_t *s_nssai, ogs_nas_s_nssai_t *nas_s_nssai);
 
 /* 9.11.3.1 5GMM capability
  * O TLV 3-15 */
