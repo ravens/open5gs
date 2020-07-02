@@ -146,10 +146,10 @@ ogs_pkbuf_t *gsm_build_pdu_session_establishment_accept(smf_sess_t *sess)
     pdu_session_establishment_accept->presencemask |=
         OGS_NAS_5GS_PDU_SESSION_ESTABLISHMENT_ACCEPT_S_NSSAI_PRESENT;
     if (sess->s_nssai.sd.v == OGS_S_NSSAI_NO_SD_VALUE) {
-        nas_s_nssai->length = 1;
+        nas_s_nssai->length = OGS_NAS_S_NSSAI_SST_LEN;
         nas_s_nssai->sst = sess->s_nssai.sst;
     } else {
-        nas_s_nssai->length = 4;
+        nas_s_nssai->length = OGS_NAS_S_NSSAI_SST_AND_SD;
         nas_s_nssai->sst = sess->s_nssai.sst;
         nas_s_nssai->sd.v = sess->s_nssai.sd.v;
     }

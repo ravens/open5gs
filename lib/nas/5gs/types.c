@@ -145,14 +145,26 @@ int ogs_nas_parse_nssai(ogs_s_nssai_t *s_nssai, ogs_nas_nssai_t *nas_nssai)
         ogs_assert(iter);
 
         len = nas_nssai->buffer[pos++];
-        if (len == 1) {
-            iter->sst = nas_nssai->buffer[pos++];
+        if (len == OGS_NAS_S_NSSAI_SST_LEN) {
+            iter->sst = nas_nssai->buffer[pos];
             iter->sd.v = OGS_S_NSSAI_NO_SD_VALUE;
-        } else if (len == 4) {
+        } else if (len == OGS_NAS_S_NSSAI_SST_AND_MAPPED_HPLMN_SST_LEN) {
+            iter->sst = nas_nssai->buffer[pos];
+            iter->sd.v = OGS_S_NSSAI_NO_SD_VALUE;
+        } else if (len == OGS_NAS_S_NSSAI_SST_AND_SD) {
             ogs_uint24_t v;
-            iter->sst = nas_nssai->buffer[pos++];
-            memcpy(&v, nas_nssai->buffer+pos, 3);
-            pos += 3;
+            iter->sst = nas_nssai->buffer[pos];
+            memcpy(&v, nas_nssai->buffer+pos+1, 3);
+            iter->sd = ogs_htobe24(v);
+        } else if (len == OGS_NAS_S_NSSAI_SST_SD_AND_MAPPED_HPLMN_SST_LEN) {
+            ogs_uint24_t v;
+            iter->sst = nas_nssai->buffer[pos];
+            memcpy(&v, nas_nssai->buffer+pos+1, 3);
+            iter->sd = ogs_htobe24(v);
+        } else if (len == OGS_NAS_S_NSSAI_SST_SD_AND_MAPPED_HPLMN_SST_SD_LEN) {
+            ogs_uint24_t v;
+            iter->sst = nas_nssai->buffer[pos];
+            memcpy(&v, nas_nssai->buffer+pos+1, 3);
             iter->sd = ogs_htobe24(v);
         } else {
             ogs_error("Cannot parse NSSAI [%d]", nas_nssai->length);
@@ -160,6 +172,7 @@ int ogs_nas_parse_nssai(ogs_s_nssai_t *s_nssai, ogs_nas_nssai_t *nas_nssai)
                     (uint8_t *)nas_nssai->buffer, nas_nssai->length);
             return 0;
         }
+        pos += len;
 
         num_of_s_nssai++;
     }
