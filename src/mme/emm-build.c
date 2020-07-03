@@ -251,18 +251,14 @@ ogs_pkbuf_t *emm_build_security_mode_command(mme_ue_t *mme_ue)
 
     OGS_HEX(_reg, strlen(_reg), tmp);
 
+    memcpy(s, tmp, 94);
+
     len = htobe16(94);
     memcpy(&s[94], &len, sizeof(len));
     memset(key, 0, 32);
 
-    ogs_log_hexdump(OGS_LOG_FATAL, s, 96);
-    ogs_log_hexdump(OGS_LOG_FATAL, key, 32);
-
     ogs_hmac_sha256(key, 32, s, 94, output, OGS_SHA256_DIGEST_SIZE);
-    ogs_log_hexdump(OGS_LOG_FATAL, output, 32);
-    memcpy(s, key, 32);
-    memcpy(s+32, tmp, 94);
-    ogs_sha256(s, 32+94, output);
+    ogs_fatal("output");
     ogs_log_hexdump(OGS_LOG_FATAL, output, 32);
 #endif
 
