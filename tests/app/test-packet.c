@@ -1311,6 +1311,13 @@ int tests1ap_build_attach_complete(ogs_pkbuf_t **pkbuf, int i)
         "000d403700000500 00000200d1000800 0200d1001a000e0d 27f6962d51010743"
         "00035200c2006440 080064f013000640 10004340060064f0 130002",
         "",
+
+        /* 24 */
+        "000d"
+        "4037000005000000 0200640008000200 01001a000e0d277a 6f1f5b0107430003"
+        "5200c20064400800 32f5400020001000 4340060032f54000 01",
+        "",
+        "",
     };
     uint16_t len[TESTS1AP_MAX_MESSAGE] = {
         62,
@@ -1344,6 +1351,11 @@ int tests1ap_build_attach_complete(ogs_pkbuf_t **pkbuf, int i)
         /* 21 */
         0,
         59,
+        0,
+
+        /* 24 */
+        59,
+        0,
         0,
     };
     char hexbuf[OGS_MAX_SDU_LEN];
