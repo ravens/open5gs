@@ -35,6 +35,11 @@ static void test1_func(abts_case *tc, void *data)
 
     test_ue_t test_ue;
 
+    const char *_k_string = "4d060eab0a7743bc8eede608a94b63de";
+    uint8_t k[OGS_KEY_LEN];
+    const char *_opc_string = "7c0f7d5a427048a86fb429cc003c117c";
+    uint8_t opc[OGS_KEY_LEN];
+
     mongoc_collection_t *collection = NULL;
     bson_t *doc = NULL;
     int64_t count = 0;
@@ -71,10 +76,10 @@ static void test1_func(abts_case *tc, void *data)
         "\"subscriber_status\" : 0, "
         "\"access_restriction_data\" : 32, "
         "\"security\" : { "
-          "\"k\" : \"465B5CE8 B199B49F AA5F0A2E E238A6BC\", "
-          "\"opc\" : \"E8ED289D EBA952E4 283B54E8 8E6183CA\", "
-          "\"amf\" : \"8000\", "
-          "\"sqn\" : { \"$numberLong\" : \"64\" }, "
+          "\"k\" : \"4d060eab0a7743bc8eede608a94b63de\", "
+          "\"opc\" : \"7c0f7d5a427048a86fb429cc003c117c\", "
+          "\"amf\" : \"9001\", "
+          "\"sqn\" : { \"$numberLong\" : \"7085\" }, "
           "\"rand\" : \"198e06800ea7a4c61e9e424f2558a774\" "
         "}, "
         "\"__v\" : 0 "
