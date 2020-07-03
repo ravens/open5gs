@@ -234,6 +234,7 @@ ogs_pkbuf_t *emm_build_security_mode_command(mme_ue_t *mme_ue)
         &security_mode_command->replayed_ue_security_capabilities;
     ogs_nas_imeisv_request_t *imeisv_request =
         &security_mode_command->imeisv_request;
+    ogs_nas_hashmme_t *hashmme = &security_mode_command->hashmme;
     ogs_nas_ue_additional_security_capability_t
         *replayed_ue_additional_security_capability =
             &security_mode_command->replayed_ue_additional_security_capability;
@@ -324,6 +325,11 @@ ogs_pkbuf_t *emm_build_security_mode_command(mme_ue_t *mme_ue)
         OGS_NAS_EPS_SECURITY_MODE_COMMAND_IMEISV_REQUEST_PRESENT;
     imeisv_request->type = OGS_NAS_IMEISV_TYPE;
     imeisv_request->value = OGS_NAS_IMEISV_REQUESTED;
+
+    security_mode_command->presencemask |=
+        OGS_NAS_EPS_SECURITY_MODE_COMMAND_HASHMME_PRESENT;
+    hashmme->length = OGS_HASH_MME_LEN;
+    memcpy(hashmme->value, mme_ue->hash_mme, hashmme->length);
 
     if (mme_ue->ue_additional_security_capability.length) {
         security_mode_command->presencemask |=

@@ -645,10 +645,9 @@ ED3(uint8_t type:4;,
 
 /* 9.9.3.50 HashMME
  * O TLV 10 */
-#define OGS_NAS_HASHMME_LEN 8
 typedef struct ogs_nas_hashmme_s {
     uint8_t length;
-    uint8_t value[OGS_NAS_HASHMME_LEN];
+    uint8_t value[OGS_HASH_MME_LEN];
 } ogs_nas_hashmme_t;
 
 /* 9.9.3.51 Replayed NAS message container
