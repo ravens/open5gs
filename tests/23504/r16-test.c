@@ -60,7 +60,7 @@ static void test1_func(abts_case *tc, void *data)
               "\"qci\" : 9, "
               "\"arp\" : { "
                 "\"priority_level\" : 15,"
-                "\"pre_emption_vulnerability\" : 0, "
+                "\"pre_emption_vulnerability\" : 1, "
                 "\"pre_emption_capability\" : 1"
               "} "
             "}, "
@@ -268,7 +268,7 @@ static void test2_func(abts_case *tc, void *data)
               "\"qci\" : 9, "
               "\"arp\" : { "
                 "\"priority_level\" : 15,"
-                "\"pre_emption_vulnerability\" : 0, "
+                "\"pre_emption_vulnerability\" : 1, "
                 "\"pre_emption_capability\" : 1"
               "} "
             "}, "
@@ -383,7 +383,6 @@ static void test2_func(abts_case *tc, void *data)
 
     ogs_msleep(50);
 
-#if 0
     /* Receive Initial Context Setup Request +
      * Attach Accept +
      * Activate Default Bearer Context Request */
@@ -393,7 +392,7 @@ static void test2_func(abts_case *tc, void *data)
 
     /* Send Initial Context Setup Response */
     rv = tests1ap_build_initial_context_setup_response(&sendbuf,
-            16777373, 1, 5, 1, "127.0.0.5");
+            1, 1, 5, 0x10783d92, "127.0.0.5");
     ABTS_INT_EQUAL(tc, OGS_OK, rv);
     rv = testenb_s1ap_send(s1ap, sendbuf);
     ABTS_INT_EQUAL(tc, OGS_OK, rv);
@@ -406,6 +405,7 @@ static void test2_func(abts_case *tc, void *data)
 
     ogs_msleep(50);
 
+#if 0
     /* Receive EMM information */
     recvbuf = testenb_s1ap_read(s1ap);
     ABTS_PTR_NOTNULL(tc, recvbuf);
