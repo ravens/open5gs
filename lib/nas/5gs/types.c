@@ -207,7 +207,7 @@ void ogs_nas_build_nssai(ogs_nas_nssai_t *nas_nssai,
     for (i = 0; i < num_of_s_nssai; i++) {
         if (nas_nssai->length < OGS_NAS_MAX_NSSAI_LEN) {
             ogs_nas_build_s_nssai(&nas_s_nssai, s_nssai + i);
-            memcpy(nas_nssai->buffer, &nas_s_nssai,
+            memcpy(nas_nssai->buffer + nas_nssai->length, &nas_s_nssai,
                     sizeof(nas_s_nssai.length) + nas_s_nssai.length);
             nas_nssai->length += 
                     (sizeof(nas_s_nssai.length) + nas_s_nssai.length);
@@ -232,7 +232,7 @@ int ogs_nas_parse_nssai(ogs_s_nssai_t *s_nssai, ogs_nas_nssai_t *nas_nssai)
             num_of_s_nssai < OGS_MAX_NUM_OF_S_NSSAI) {
 
         len = ogs_nas_parse_s_nssai(s_nssai + num_of_s_nssai,
-                (ogs_nas_s_nssai_t *)nas_nssai->buffer);
+                (ogs_nas_s_nssai_t *)(nas_nssai->buffer + pos));
         if (len == 0) {
             ogs_error("Cannot parse NSSAI [%d]", nas_nssai->length);
             ogs_log_hexdump(OGS_ERROR, nas_nssai->buffer, nas_nssai->length);
