@@ -581,7 +581,7 @@ ogs_pkbuf_t *testgmm_build_ul_nas_transport(test_sess_t *test_sess,
     ogs_nas_payload_container_t *payload_container = NULL;
     ogs_nas_pdu_session_identity_2_t *pdu_session_id = NULL;
     ogs_nas_request_type_t *request_type = NULL;
-#define S_NSSAI_PRECENSE 1
+#define S_NSSAI_PRECENSE 0
 #if S_NSSAI_PRECENSE
     ogs_nas_s_nssai_t *nas_s_nssai = NULL;
 #endif

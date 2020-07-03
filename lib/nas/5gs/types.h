@@ -64,8 +64,8 @@ typedef struct ogs_nas_s_nssai_s {
 
 void ogs_nas_build_s_nssai(
         ogs_nas_s_nssai_t *nas_s_nssai, ogs_s_nssai_t *s_nssai);
-int ogs_nas_parse_s_nssai(ogs_s_nssai_t *s_nssai, uint8_t *buffer);
-
+int ogs_nas_parse_s_nssai(
+        ogs_s_nssai_t *s_nssai, ogs_nas_s_nssai_t *nas_s_nssai);
 /* 9.11.3.1 5GMM capability
  * O TLV 3-15 */
 typedef struct ogs_nas_5gmm_capability_s {
