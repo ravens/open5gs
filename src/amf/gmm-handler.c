@@ -228,19 +228,18 @@ int gmm_handle_registration_update(amf_ue_t *amf_ue,
                 amf_ue, &registration_request->nas_message_container);
     }
 
+    if (registration_request->presencemask &
+        OGS_NAS_5GS_REGISTRATION_REQUEST_REQUESTED_NSSAI_PRESENT) {
+
+        amf_ue->num_of_requested_nssai = ogs_nas_parse_nssai(
+            amf_ue->requested_nssai, &registration_request->requested_nssai);
+    }
 
     if (registration_request->presencemask &
         OGS_NAS_5GS_REGISTRATION_REQUEST_LAST_VISITED_REGISTERED_TAI_PRESENT) {
 
         ogs_nas_to_plmn_id(&amf_ue->last_visited_plmn_id,
             &last_visited_registered_tai->nas_plmn_id);
-    }
-
-    if (registration_request->presencemask &
-        OGS_NAS_5GS_REGISTRATION_REQUEST_REQUESTED_NSSAI_PRESENT) {
-
-        amf_ue->num_of_requested_nssai = ogs_nas_parse_nssai(
-            amf_ue->requested_nssai, &registration_request->requested_nssai);
     }
 
     if (registration_request->presencemask &

@@ -147,21 +147,10 @@ ogs_pkbuf_t *testgmm_build_registration_request(
         /* Set Requested NSSAI */
         registration_request->presencemask |=
             OGS_NAS_5GS_REGISTRATION_REQUEST_REQUESTED_NSSAI_PRESENT;
-#if 1
         requested_nssai->length = 0;
 
         ogs_nas_build_nssai(requested_nssai,
             &test_self()->plmn_support[0].s_nssai[0], 1);
-#else
-
-        char tmp[] = { 0x08, 0x01, 0x00, 0x03, 0xe8, 0x0a, 0x00, 0x00, 0x64 };
-        requested_nssai->length = 9;
-        memcpy(requested_nssai->buffer, tmp, 9);
-
-        ogs_fatal("%d", requested_nssai->length);
-        ogs_log_hexdump(OGS_LOG_FATAL,
-                requested_nssai->buffer, requested_nssai->length);
-#endif
     }
 
     if (test_ue->registration_request_type.last_visited_registered_tai) {

@@ -129,6 +129,8 @@ ogs_sbi_request_t *amf_nsmf_pdu_session_build_create_sm_context(
     ogs_free(header.resource.component[2]);
     if (s_nssai.sd)
         ogs_free(s_nssai.sd);
+    if (hplmn_snssai.sd)
+        ogs_free(hplmn_snssai.sd);
     if (SmContextCreateData.gpsi)
         ogs_free(SmContextCreateData.gpsi);
 
