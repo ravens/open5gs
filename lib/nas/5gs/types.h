@@ -59,11 +59,6 @@ typedef struct ogs_nas_eap_message_s {
 #define OGS_NAS_S_NSSAI_SST_SD_AND_MAPPED_HPLMN_SST_SD_LEN 8
 typedef struct ogs_nas_s_nssai_s {
     uint8_t length;
-    uint8_t sst;
-    ogs_uint24_t sd;
-    uint8_t mapped_hplmn_sst;
-    ogs_uint24_t mapped_hplmn_sd;
-
     uint8_t buffer[OGS_NAS_S_NSSAI_SST_SD_AND_MAPPED_HPLMN_SST_SD_LEN];
 } __attribute__ ((packed)) ogs_nas_s_nssai_t;
 

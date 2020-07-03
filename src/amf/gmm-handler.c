@@ -861,13 +861,9 @@ int gmm_handle_ul_nas_transport(amf_ue_t *amf_ue,
         if (ul_nas_transport->presencemask &
                 OGS_NAS_5GS_UL_NAS_TRANSPORT_S_NSSAI_PRESENT) {
             ogs_s_nssai_t s_nssai;
-            s_nssai.sst = nas_s_nssai->sst;
-            if (nas_s_nssai->length > 1)
-                s_nssai.sd = ogs_be24toh(nas_s_nssai->sd);
-            else
-                s_nssai.sd.v = OGS_S_NSSAI_NO_SD_VALUE;
-            selected_s_nssai =
-                amf_find_s_nssai(&amf_ue->tai.plmn_id, &s_nssai);
+            if (ogs_nas_parse_s_nssai(&s_nssai, nas_s_nssai->buffer) != 0)
+                selected_s_nssai =
+                    amf_find_s_nssai(&amf_ue->tai.plmn_id, &s_nssai);
         }
 
         if (!selected_s_nssai) {

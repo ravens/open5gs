@@ -1472,6 +1472,11 @@ amf_sess_t *amf_sess_add(amf_ue_t *amf_ue, uint8_t psi)
     sess->amf_ue = amf_ue;
     sess->psi = psi;
 
+    sess->s_nssai.sst = 0;
+    sess->s_nssai.sd.v = OGS_S_NSSAI_NO_SD_VALUE;
+    sess->s_nssai.mapped_hplmn_sst = 0;
+    sess->s_nssai.mapped_hplmn_sd.v = OGS_S_NSSAI_NO_SD_VALUE;
+
     sess->sbi.client_wait.timer = ogs_timer_add(
             self.timer_mgr, amf_timer_sbi_client_wait_expire, sess);
 
