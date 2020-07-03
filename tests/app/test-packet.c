@@ -316,7 +316,11 @@ int tests1ap_build_initial_ue_msg(ogs_pkbuf_t **pkbuf, int i)
         "0000000000030000 0a00000d005232f5 4000015c20001332 f540000111034f18"
         "805d0105e010028d c06f04f000f00000 4300060032f54000 01006440080032f5"
         "4000200010008640 0130",
-        "",
+        "000c"
+        "4074000005000800 020001001a004c4b 0741720829534037 4600000607f0f0c0"
+        "4001001000230201 d031271d80802110 0101001081060000 0000830600000000"
+        "000300000a00000d 005c20009011034f 18805d01056f04f0 00f0000043000600"
+        "32f5400001006440 080032f540002000 100086400130",
         "",
     };
     uint16_t len[TESTS1AP_MAX_MESSAGE] = {
@@ -355,7 +359,7 @@ int tests1ap_build_initial_ue_msg(ogs_pkbuf_t **pkbuf, int i)
 
         /* 24 */
         140,
-        0,
+        120,
         0,
     };
     char hexbuf[OGS_MAX_SDU_LEN];
@@ -539,7 +543,9 @@ int tests1ap_build_authentication_response(ogs_pkbuf_t **pkbuf, int i)
         "000d"
         "4035000005000000 0200640008000200 01001a000c0b0753 08db8af07f4b815c"
         "9a006440080032f5 4000200010004340 060032f5400001",
-        "",
+        "000d"
+        "4035000005000000 0200640008000200 01001a000c0b0753 0886f726fd424fa5"
+        "ab006440080032f5 4000200010004340 060032f5400001",
         "",
     };
 
@@ -579,7 +585,7 @@ int tests1ap_build_authentication_response(ogs_pkbuf_t **pkbuf, int i)
 
         /* 24 */
         57,
-        0,
+        57,
         0,
     };
     char hexbuf[OGS_MAX_SDU_LEN];
@@ -710,7 +716,9 @@ int tests1ap_build_security_mode_complete(ogs_pkbuf_t **pkbuf, int i)
         "000d"
         "403d000005000000 0200640008000200 01001a0014134725 f0f17d00075e2309"
         "8306370004448009 f1006440080032f5 4000200010004340 060032f5400001",
-        "",
+        "000d"
+        "403d000005000000 0200640008000200 01001a0014134716 baaf8800075e2309"
+        "8306370004448009 f1006440080032f5 4000200010004340 060032f5400001",
         "",
     };
     uint16_t len[TESTS1AP_MAX_MESSAGE] = {
@@ -749,7 +757,7 @@ int tests1ap_build_security_mode_complete(ogs_pkbuf_t **pkbuf, int i)
 
         /* 24 */
         65,
-        0,
+        65,
         0,
     };
     char hexbuf[OGS_MAX_SDU_LEN];
