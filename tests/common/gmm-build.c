@@ -581,9 +581,9 @@ ogs_pkbuf_t *testgmm_build_ul_nas_transport(test_sess_t *test_sess,
     ogs_nas_payload_container_t *payload_container = NULL;
     ogs_nas_pdu_session_identity_2_t *pdu_session_id = NULL;
     ogs_nas_request_type_t *request_type = NULL;
-#define S_NSSAI_PRECENSE 0
+#define S_NSSAI_PRECENSE 1
 #if S_NSSAI_PRECENSE
-    ogs_nas_s_nssai_t *s_nssai = NULL;
+    ogs_nas_s_nssai_t *nas_s_nssai = NULL;
 #endif
 
     ogs_assert(test_sess);
@@ -597,7 +597,7 @@ ogs_pkbuf_t *testgmm_build_ul_nas_transport(test_sess_t *test_sess,
     pdu_session_id = &ul_nas_transport->pdu_session_id;
     request_type = &ul_nas_transport->request_type;
 #if S_NSSAI_PRECENSE
-    s_nssai = &ul_nas_transport->s_nssai;
+    nas_s_nssai = &ul_nas_transport->s_nssai;
 #endif
 
     memset(&message, 0, sizeof(message));
@@ -626,15 +626,8 @@ ogs_pkbuf_t *testgmm_build_ul_nas_transport(test_sess_t *test_sess,
 #if S_NSSAI_PRECENSE
     ul_nas_transport->presencemask |=
             OGS_NAS_5GS_UL_NAS_TRANSPORT_S_NSSAI_PRESENT;
-    if (test_self()->plmn_support[0].s_nssai[0].sd.v ==
-            OGS_S_NSSAI_NO_SD_VALUE) {
-        s_nssai->length = 1;
-        s_nssai->sst = test_self()->plmn_support[0].s_nssai[0].sst;
-    } else {
-        s_nssai->length = 4;
-        s_nssai->sst = test_self()->plmn_support[0].s_nssai[0].sst;
-        s_nssai->sd = ogs_htobe24(test_self()->plmn_support[0].s_nssai[0].sd);
-    }
+    ogs_nas_build_s_nssai(
+            nas_s_nssai, &test_self()->plmn_support[0].s_nssai[0]);
 #endif
 
     ul_nas_transport->presencemask |=

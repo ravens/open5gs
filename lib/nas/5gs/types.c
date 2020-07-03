@@ -91,37 +91,36 @@ void ogs_nas_5gs_tai_list_build(
     }
 }
 
-int ogs_nas_build_s_nssai(uint8_t *buffer, ogs_s_nssai_t *s_nssai)
+void ogs_nas_build_s_nssai(
+        ogs_nas_s_nssai_t *nas_s_nssai, ogs_s_nssai_t *s_nssai)
 {
     int pos;
     ogs_uint24_t v;
 
-    ogs_assert(buffer);
+    ogs_assert(nas_s_nssai);
     ogs_assert(s_nssai);
 
-    pos = 1;
+    pos = 0;
 
     if (s_nssai->sst)
-        buffer[pos++] = s_nssai->sst;
+        nas_s_nssai->buffer[pos++] = s_nssai->sst;
 
     if (s_nssai->sd.v != OGS_S_NSSAI_NO_SD_VALUE) {
         v = ogs_htobe24(s_nssai->sd);
-        memcpy(buffer+pos, &v, 3);
+        memcpy(nas_s_nssai->buffer+pos, &v, 3);
         pos += 3;
     }
 
     if (s_nssai->mapped_hplmn_sst)
-        buffer[pos++] = s_nssai->mapped_hplmn_sst;
+        nas_s_nssai->buffer[pos++] = s_nssai->mapped_hplmn_sst;
 
     if (s_nssai->mapped_hplmn_sd.v != OGS_S_NSSAI_NO_SD_VALUE) {
         v = ogs_htobe24(s_nssai->mapped_hplmn_sd);
-        memcpy(buffer+pos, &v, 3);
+        memcpy(nas_s_nssai->buffer+pos, &v, 3);
         pos += 3;
     }
 
-    buffer[0] = pos-1;
-
-    return pos;
+    nas_s_nssai->length = pos;
 }
 
 int ogs_nas_parse_s_nssai(ogs_s_nssai_t *s_nssai, uint8_t *buffer)
@@ -203,11 +202,11 @@ void ogs_nas_build_nssai(ogs_nas_nssai_t *nas_nssai,
 
     for (i = 0; i < num_of_s_nssai; i++) {
         if (nas_nssai->length < OGS_NAS_MAX_NSSAI_LEN) {
-            nas_s_nssai.length = ogs_nas_build_s_nssai(
-                    nas_s_nssai.buffer, s_nssai + i);
-            ogs_assert(nas_s_nssai.length);
-            memcpy(nas_nssai->buffer, nas_s_nssai.buffer, nas_s_nssai.length);
-            nas_nssai->length += nas_s_nssai.length;
+            ogs_nas_build_s_nssai(&nas_s_nssai, s_nssai + i);
+            memcpy(nas_nssai->buffer, &nas_s_nssai,
+                    sizeof(nas_s_nssai.length) + nas_s_nssai.length);
+            nas_nssai->length += 
+                    (sizeof(nas_s_nssai.length) + nas_s_nssai.length);
         }
     }
 }

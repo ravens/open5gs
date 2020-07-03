@@ -634,7 +634,6 @@ int amf_context_parse_config(void)
                                             s_nssai->sd.v =
                                                 OGS_S_NSSAI_NO_SD_VALUE;
 
-                                        /* TODO : Mapped HPLMN SST/SD */
                                         s_nssai->mapped_hplmn_sst = 0;
                                         s_nssai->mapped_hplmn_sd.v =
                                                 OGS_S_NSSAI_NO_SD_VALUE;
