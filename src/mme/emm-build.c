@@ -108,7 +108,8 @@ ogs_pkbuf_t *emm_build_attach_accept(
     attach_accept->presencemask |= 
         OGS_NAS_EPS_ATTACH_ACCEPT_EPS_NETWORK_FEATURE_SUPPORT_PRESENT;
     eps_network_feature_support->length = 2;
-    eps_network_feature_support->ims_vops = 1;
+    eps_network_feature_support->ims_voice_over_ps_session_in_s1_mode = 1;
+    eps_network_feature_support->extended_protocol_configuration_options = 1;
 
     if (MME_P_TMSI_IS_AVAILABLE(mme_ue)) {
         ogs_assert(mme_ue->csmap);
@@ -465,7 +466,10 @@ ogs_pkbuf_t *emm_build_tau_accept(mme_ue_t *mme_ue)
     tau_accept->presencemask |=
         OGS_NAS_EPS_TRACKING_AREA_UPDATE_ACCEPT_EPS_NETWORK_FEATURE_SUPPORT_PRESENT;
     tau_accept->eps_network_feature_support.length = 1;
-    tau_accept->eps_network_feature_support.ims_vops = 1;
+    tau_accept->eps_network_feature_support.
+        ims_voice_over_ps_session_in_s1_mode = 1;
+    tau_accept->eps_network_feature_support.
+        extended_protocol_configuration_options = 1;
 
     return nas_eps_security_encode(mme_ue, &message);
 }
